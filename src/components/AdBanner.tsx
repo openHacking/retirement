@@ -7,10 +7,18 @@ declare global {
 const AdBanner: React.FC = () => {
 
     useEffect(() => {
-        // Trigger adsbygoogle script after component mounts
 
-        const adsbygoogle = window.adsbygoogle || [];
-        adsbygoogle.push({});
+        const ads = document.getElementsByClassName("adsbygoogle").length;
+        window.adsbygoogle = window.adsbygoogle || [];
+
+        for (let i = 0; i < ads; i++) {
+            try {
+                window.adsbygoogle.push({} as never);
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
     }, []);
 
     return (
