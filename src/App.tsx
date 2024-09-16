@@ -3,7 +3,7 @@ import { Button, Picker, Form, DatePicker, Card, Toast } from 'antd-mobile';
 import { GenderType, Result, calculateRetirement } from './utils/retirement';
 import './App.css'
 import { UndoOutline } from 'antd-mobile-icons';
-import { Notice } from './components/notice';
+import { Notice } from './components/Notice';
 
 type WorkerType = '50' | '55';
 
@@ -50,90 +50,90 @@ const App: React.FC = () => {
   };
 
   return (<>
-  <div className='card-main'>
-    {!result ? (
-      <Card >
-        <Form layout="horizontal">
-          <Form.Item label="输入您的信息">
-          </Form.Item>
-          <Form.Item label="性别">
-            <Button
-              onClick={() => setGenderVisible(true)}
-            >
-              {genderOptions.find((item) => item.value === gender)?.label || '选择'}
-            </Button>
-
-            <Picker
-              visible={genderVisible}
-              onClose={() => setGenderVisible(false)}
-              columns={[genderOptions]}
-              onConfirm={(value) => setGender(value[0] as GenderType)}
-            />
-          </Form.Item>
-
-          <Form.Item label="出生年月">
-            <Button
-              onClick={() => setDateVisible(true)}
-            >
-              {birthDate ? `${birthDate.getFullYear()}/${birthDate.getMonth() + 1}` : '选择'}
-            </Button>
-            <DatePicker
-              visible={dateVisible}
-              onClose={() => setDateVisible(false)}
-              min={new Date(1965, 0, 1)}
-              precision="month"
-              defaultValue={new Date(1990, 0, 1)}
-              onConfirm={(date) => setBirthDate(date)}
-            />
-          </Form.Item>
-
-          {gender === 'female' && (
-            <Form.Item label="工作类型">
+    <div className='card-main'>
+      {!result ? (
+        <Card >
+          <Form layout="horizontal">
+            <Form.Item label="输入您的信息">
+            </Form.Item>
+            <Form.Item label="性别">
               <Button
-                onClick={() => setWorkVisible(true)}
+                onClick={() => setGenderVisible(true)}
               >
-                {workerOptions.find((item) => item.value === isFemaleWorker)?.label || '选择'}
+                {genderOptions.find((item) => item.value === gender)?.label || '选择'}
               </Button>
+
               <Picker
-                visible={workVisible}
-                onClose={() => setWorkVisible(false)}
-                columns={[workerOptions]}
-                onConfirm={(value) => setIsFemaleWorker(value[0] as WorkerType)}
+                visible={genderVisible}
+                onClose={() => setGenderVisible(false)}
+                columns={[genderOptions]}
+                onConfirm={(value) => setGender(value[0] as GenderType)}
               />
             </Form.Item>
-          )}
-        </Form>
 
-        <div className='btn-card-footer'><Button block color="primary" onClick={handleSubmit}>
-          开始计算
-        </Button></div>
+            <Form.Item label="出生年月">
+              <Button
+                onClick={() => setDateVisible(true)}
+              >
+                {birthDate ? `${birthDate.getFullYear()}/${birthDate.getMonth() + 1}` : '选择'}
+              </Button>
+              <DatePicker
+                visible={dateVisible}
+                onClose={() => setDateVisible(false)}
+                min={new Date(1965, 0, 1)}
+                precision="month"
+                defaultValue={new Date(1990, 0, 1)}
+                onConfirm={(date) => setBirthDate(date)}
+              />
+            </Form.Item>
 
-      </Card>
-    ) : (
-      <Card>
-        <Form layout="horizontal">
-          <Form.Item label="计算结果">
-          </Form.Item>
-          <Form.Item label="退休年龄">
-            <b><span className='retirement-age-year'>{result.retirementAgeYear}</span> 岁{result.retirementAgeMonth !== 0 && <span> {result.retirementAgeMonth} 个月</span>}</b>
-          </Form.Item>
-          <Form.Item label="退休时间">
-            <b>{result.retirementYear}/{result.retirementMonth}</b>
-          </Form.Item>
-          <Form.Item label="延迟退休月数">
-            <b>{result.delayMonths}</b>
-          </Form.Item>
-        </Form>
-        <div className='btn-card-footer'>
-          <Button block onClick={handleReset}>
-            <UndoOutline className='btn-card-footer-icon' /> 重新计算
-          </Button>
-        </div>
-      </Card>
-    )}
+            {gender === 'female' && (
+              <Form.Item label="工作类型">
+                <Button
+                  onClick={() => setWorkVisible(true)}
+                >
+                  {workerOptions.find((item) => item.value === isFemaleWorker)?.label || '选择'}
+                </Button>
+                <Picker
+                  visible={workVisible}
+                  onClose={() => setWorkVisible(false)}
+                  columns={[workerOptions]}
+                  onConfirm={(value) => setIsFemaleWorker(value[0] as WorkerType)}
+                />
+              </Form.Item>
+            )}
+          </Form>
+
+          <div className='btn-card-footer'><Button block color="primary" onClick={handleSubmit}>
+            开始计算
+          </Button></div>
+
+        </Card>
+      ) : (
+        <Card>
+          <Form layout="horizontal">
+            <Form.Item label="计算结果">
+            </Form.Item>
+            <Form.Item label="退休年龄">
+              <b><span className='retirement-age-year'>{result.retirementAgeYear}</span> 岁{result.retirementAgeMonth !== 0 && <span> {result.retirementAgeMonth} 个月</span>}</b>
+            </Form.Item>
+            <Form.Item label="退休时间">
+              <b>{result.retirementYear}/{result.retirementMonth}</b>
+            </Form.Item>
+            <Form.Item label="延迟退休月数">
+              <b>{result.delayMonths}</b>
+            </Form.Item>
+          </Form>
+          <div className='btn-card-footer'>
+            <Button block onClick={handleReset}>
+              <UndoOutline className='btn-card-footer-icon' /> 重新计算
+            </Button>
+          </div>
+        </Card>
+      )}
 
 
-  </div>
+    </div>
 
     <div className='card-notice'>
       <Notice />
